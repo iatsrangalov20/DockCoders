@@ -16,11 +16,12 @@ int main(void)
     const int screenWidth = 1920;
     const int screenHeight = 1080;
 
-    InitWindow(screenWidth, screenHeight, "Main Menu");
+    InitWindow(screenWidth, screenHeight, "Game");
 
     GameScreen currentScreen = MENU;
 
     int framesCounter = 0;
+    bool darkMode = false;
 
     SetTargetFPS(60);
 
@@ -65,6 +66,26 @@ int main(void)
                 {
                     currentScreen = MENU;
                 }
+                if (IsKeyPressed(KEY_SIX))
+                {
+                    SetTargetFPS(60);
+                }
+                if (IsKeyPressed(KEY_ONE) && IsKeyPressed(KEY_TWO))
+                {
+                    SetTargetFPS(120);
+                }
+                if (IsKeyPressed(KEY_ONE) && IsKeyPressed(KEY_EIGHT))
+                {
+                    SetTargetFPS(180);
+                }
+                if (IsKeyPressed(KEY_TWO) && IsKeyPressed(KEY_FOUR))
+                {
+                    SetTargetFPS(240);
+                }
+                if (IsKeyPressed(KEY_D))
+                {
+                    darkMode = true;
+                }
             }
                 break;
 
@@ -108,8 +129,33 @@ int main(void)
 
                 case OPTIONS:
                 {
-                    DrawRectangle(100, 100, 800, 800, PURPLE);
-                    DrawText("Here you will see the options in the future", 400, 400, 80, BROWN);
+                    DrawFPS(30, 60);
+
+                    DrawText("OPTIONS", 720, 120, 110, BROWN);
+
+                    DrawText("Choose FPS", 120, 300, 70, RED);
+
+                    DrawRectangle(250, 450, 100, 100, BLUE);
+                    DrawRectangle(700, 450, 100, 100, BLUE);
+                    DrawRectangle(1160, 450, 100, 100, BLUE);
+                    DrawRectangle(1600, 450, 100, 100, BLUE);
+
+                    DrawText("60", 260, 570, 70, BLUE);
+                    DrawText("[6]", 260, 650, 70, GOLD);
+                    DrawText("120", 700, 570, 70, BLUE);
+                    DrawText("[12]", 700, 650, 70, GOLD);
+                    DrawText("180", 1160, 570, 70, BLUE);
+                    DrawText("[18]", 1160, 650, 70, GOLD);
+                    DrawText("240", 1590, 570, 70, BLUE);
+                    DrawText("[24]", 1590, 650, 70, GOLD);
+
+                    DrawText("Dark Mode [D]", 120, 850, 70, GREEN);
+                    DrawRectangle(700, 830, 100, 100, LIGHTGRAY);
+
+                    if (darkMode == true)
+                    {
+                        DrawRectangle(700, 830, 100, 100, GREEN);
+                    }
 
                 }
                     break;
