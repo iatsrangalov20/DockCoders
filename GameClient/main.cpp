@@ -121,9 +121,16 @@ int main(void)
 
                 case PLAY:
                 {
-                    DrawRectangle(100, 100, 800, 800, GREEN);
-                    DrawText("Here you will play in the future", 400, 400, 80, RED);
+                    Image start_card = LoadImage("starter_card.png");
+                    ImageResize(&start_card, 50, 90);
+                    Texture2D img_tex = LoadTextureFromImage(start_card);
 
+                    DrawTexture(img_tex, 400, 450, WHITE);
+                    DrawTexture(img_tex, 600, 450, WHITE);
+                    DrawTexture(img_tex, 850, 450, WHITE);
+                    DrawTexture(img_tex, 1070, 450, WHITE);
+                    DrawTexture(img_tex, 1320, 450, WHITE);
+                    DrawTexture(img_tex, 1520, 450, WHITE);
                 }
                     break;
 
