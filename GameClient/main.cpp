@@ -121,8 +121,8 @@ int main(void)
 
                 case PLAY:
                 {
-                    Image start_card = LoadImage("starter_card.png");
-                    ImageResize(&start_card, 50, 90);
+                    Image start_card = LoadImage("texture/starter_card.png");
+                    ImageResize(&start_card, 100, 140);
                     Texture2D img_tex = LoadTextureFromImage(start_card);
 
                     DrawTexture(img_tex, 400, 450, WHITE);
