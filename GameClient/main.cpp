@@ -123,8 +123,12 @@ int main(void)
         case PLAY:
         {
             Image start_card = LoadImage("texture/starter_card.png");
-            ImageResize(&start_card, 50, 90);
+            ImageResize(&start_card, 150, 190);
 
+            Image deck = LoadImage("texture/deck.png");
+            ImageResize(&deck, 200, 270);
+            Texture2D deck_tex = LoadTextureFromImage(deck);
+            DrawTexture(deck_tex, 1650, 100, WHITE);
 
             srand(time(NULL));
 
@@ -161,7 +165,7 @@ int main(void)
                 }
                 }
 
-                x += 100;
+                x += 200;
             }
 
 
