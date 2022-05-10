@@ -28,7 +28,6 @@ int main(void)
 
     while (!WindowShouldClose())
     {
-
         switch (currentScreen)
         {
         case MENU:
@@ -113,15 +112,32 @@ int main(void)
         {
         case MENU:
         {
-            DrawText("PLAY [P]", 720, 200, 120, DARKGRAY);
-            DrawText("OPTIONS [O]", 600, 400, 120, DARKGRAY);
-            DrawText("RULES [R]", 680, 600, 120, DARKGRAY);
-            DrawText("EXIT [E]", 720, 800, 120, DARKGRAY);
+            if (darkMode)
+            {
+                ClearBackground(BLACK);
+
+                DrawText("PLAY [P]", 720, 200, 120, WHITE);
+                DrawText("OPTIONS [O]", 600, 400, 120, WHITE);
+                DrawText("RULES [R]", 680, 600, 120, WHITE);
+                DrawText("EXIT [E]", 720, 800, 120, WHITE);
+            }
+            else
+            {
+                DrawText("PLAY [P]", 720, 200, 120, DARKGRAY);
+                DrawText("OPTIONS [O]", 600, 400, 120, DARKGRAY);
+                DrawText("RULES [R]", 680, 600, 120, DARKGRAY);
+                DrawText("EXIT [E]", 720, 800, 120, DARKGRAY);
+            }
         }
         break;
 
         case PLAY:
         {
+            if (darkMode)
+            {
+                ClearBackground(BLACK);
+            }
+
             Image start_card = LoadImage("texture/starter_card.png");
             ImageResize(&start_card, 150, 190);
 
@@ -132,6 +148,7 @@ int main(void)
 
             srand(time(NULL));
 
+            //Initial binaries randomise
             int choice[6];
 
             if (!randomiseCards)
@@ -168,36 +185,250 @@ int main(void)
                 x += 200;
             }
 
+            //Deck
+            string cards[6][8]{
+                { "1and", "1and", "1and", "1and", "1and", "1and", "1and", "1and" },
+                { "0and", "0and", "0and", "0and", "0and", "0and", "0and", "0and" },
+                { "1or", "1or", "1or", "1or", "1or", "1or", "1or", "1or" },
+                { "0or", "0or", "0or", "0or", "0or", "0or", "0or", "0or" },
+                { "1xor", "1xor", "1xor", "1xor", "1xor", "1xor", "1xor", "1xor" },
+                { "0xor", "0xor", "0xor", "0xor", "0xor", "0xor", "0xor", "0xor" }
+            };
 
+            //First - 5 random cards (choose 1 to put or discard); next time - pull 1 (-||-)
+
+            //First 5 random cards
+            int randRow = 0, randCol = 0;
+            string playerCards[7];
+
+            randomiseCards = false;
+
+            if (!randomiseCards)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    randRow = rand() % 6;
+                    randCol = rand() % 8;
+
+                    if (cards[randRow][randCol] != "empty")
+                    {
+                        playerCards[i] = cards[randRow][randCol];
+                        cards[randRow][randCol] = "empty";
+                    }
+                }
+
+                randomiseCards = true;
+            }
+            
+            if (darkMode)
+            {
+                DrawText("Player 1's deck", 15, 50, 20, WHITE);
+            }
+            else
+            {
+                DrawText("Player 1's deck", 15, 50, 20, BLACK);
+            }
+
+            x = 15;
+            y = 80;
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (playerCards[i] == "1and")
+                {
+                    Image card = LoadImage("texture/1and.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "0and")
+                {
+                    Image card = LoadImage("texture/0and.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "1or")
+                {
+                    Image card = LoadImage("texture/1or.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "0or")
+                {
+                    Image card = LoadImage("texture/0or.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "1xor")
+                {
+                    Image card = LoadImage("texture/1xor.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "0xor")
+                {
+                    Image card = LoadImage("texture/0xor.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+
+                x += 75;
+            }
+
+            if (darkMode)
+            {
+                DrawText("Player 2's deck", 15, 210, 20, WHITE);
+            }
+            else
+            {
+                DrawText("Player 2's deck", 15, 210, 20, BLACK);
+            }
+
+            x = 15;
+            y = 240;
+
+            randomiseCards = false;
+
+            if (!randomiseCards)
+            {
+                for (int i = 0; i < 5; i++)
+                {
+                    randRow = rand() % 6;
+                    randCol = rand() % 8;
+
+                    if (cards[randRow][randCol] != "empty")
+                    {
+                        playerCards[i] = cards[randRow][randCol];
+                        cards[randRow][randCol] = "empty";
+                    }
+                }
+
+                randomiseCards = true;
+            }
+
+            for (int i = 0; i < 5; i++)
+            {
+                if (playerCards[i] == "1and")
+                {
+                    Image card = LoadImage("texture/1and.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "0and")
+                {
+                    Image card = LoadImage("texture/0and.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "1or")
+                {
+                    Image card = LoadImage("texture/1or.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "0or")
+                {
+                    Image card = LoadImage("texture/0or.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "1xor")
+                {
+                    Image card = LoadImage("texture/1xor.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+                if (playerCards[i] == "0xor")
+                {
+                    Image card = LoadImage("texture/0xor.png");
+                    ImageResize(&card, 60, 100);
+                    ImageFlipVertical(&card);
+                    Texture2D img_card = LoadTextureFromImage(card);
+                    DrawTexture(img_card, x, y, WHITE);
+                }
+
+                x += 75;
+            }
         }
         break;
 
         case OPTIONS:
         {
-            DrawFPS(30, 60);
+            if (darkMode)
+            {
+                ClearBackground(BLACK);
 
-            DrawText("OPTIONS", 720, 120, 110, BROWN);
+                DrawFPS(30, 60);
 
-            DrawText("Choose FPS", 120, 300, 70, RED);
+                DrawText("OPTIONS", 720, 120, 110, BLUE);
 
-            DrawRectangle(250, 450, 100, 100, BLUE);
-            DrawRectangle(700, 450, 100, 100, BLUE);
-            DrawRectangle(1160, 450, 100, 100, BLUE);
-            DrawRectangle(1600, 450, 100, 100, BLUE);
+                DrawText("Choose FPS", 120, 300, 70, GOLD);
 
-            DrawText("60", 260, 570, 70, BLUE);
-            DrawText("[6]", 260, 650, 70, GOLD);
-            DrawText("120", 700, 570, 70, BLUE);
-            DrawText("[12]", 700, 650, 70, GOLD);
-            DrawText("180", 1160, 570, 70, BLUE);
-            DrawText("[18]", 1160, 650, 70, GOLD);
-            DrawText("240", 1590, 570, 70, BLUE);
-            DrawText("[24]", 1590, 650, 70, GOLD);
+                DrawRectangle(250, 450, 100, 100, BLUE);
+                DrawRectangle(700, 450, 100, 100, BLUE);
+                DrawRectangle(1160, 450, 100, 100, BLUE);
+                DrawRectangle(1600, 450, 100, 100, BLUE);
 
-            DrawText("Dark Mode [D]", 120, 850, 70, GREEN);
-            DrawRectangle(700, 830, 100, 100, LIGHTGRAY);
+                DrawText("60", 260, 570, 70, BLUE);
+                DrawText("[6]", 260, 650, 70, GOLD);
+                DrawText("120", 700, 570, 70, BLUE);
+                DrawText("[12]", 700, 650, 70, GOLD);
+                DrawText("180", 1160, 570, 70, BLUE);
+                DrawText("[18]", 1160, 650, 70, GOLD);
+                DrawText("240", 1590, 570, 70, BLUE);
+                DrawText("[24]", 1590, 650, 70, GOLD);
 
-            if (darkMode == true)
+                DrawText("Dark Mode [D]", 120, 850, 70, GREEN);
+                DrawRectangle(700, 830, 100, 100, LIGHTGRAY);
+            }
+            else
+            {
+                DrawFPS(30, 60);
+
+                DrawText("OPTIONS", 720, 120, 110, BROWN);
+
+                DrawText("Choose FPS", 120, 300, 70, RED);
+
+                DrawRectangle(250, 450, 100, 100, BLUE);
+                DrawRectangle(700, 450, 100, 100, BLUE);
+                DrawRectangle(1160, 450, 100, 100, BLUE);
+                DrawRectangle(1600, 450, 100, 100, BLUE);
+
+                DrawText("60", 260, 570, 70, BLUE);
+                DrawText("[6]", 260, 650, 70, GOLD);
+                DrawText("120", 700, 570, 70, BLUE);
+                DrawText("[12]", 700, 650, 70, GOLD);
+                DrawText("180", 1160, 570, 70, BLUE);
+                DrawText("[18]", 1160, 650, 70, GOLD);
+                DrawText("240", 1590, 570, 70, BLUE);
+                DrawText("[24]", 1590, 650, 70, GOLD);
+
+                DrawText("Dark Mode [D]", 120, 850, 70, GREEN);
+                DrawRectangle(700, 830, 100, 100, LIGHTGRAY);
+            }
+
+            if (darkMode)
             {
                 DrawRectangle(700, 830, 100, 100, GREEN);
             }
@@ -207,6 +438,11 @@ int main(void)
 
         case RULES:
         {
+            if (darkMode)
+            {
+                ClearBackground(BLACK);
+            }
+
             DrawRectangle(100, 100, 800, 800, BLUE);
             DrawText("Here you will see the rules in the future", 400, 400, 80, GRAY);
 
@@ -215,7 +451,16 @@ int main(void)
 
         case EXIT:
         {
-            DrawText("Exit after 2 seconds", 500, 200, 90, BLUE);
+            if (darkMode)
+            {
+                ClearBackground(BLACK);
+                DrawText("Exit after 2 seconds", 500, 200, 90, WHITE);
+            }
+            else
+            {
+                DrawText("Exit after 2 seconds", 500, 200, 90, BLUE);
+            }
+            
 
             framesCounter++;
 
