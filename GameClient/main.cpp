@@ -1,5 +1,6 @@
 #include "raylib.h"
 #include <iostream>
+#include <conio.h>
 
 using namespace std;
 
@@ -11,7 +12,7 @@ typedef enum GameScreen {
     EXIT
 } GameScreen;
 
-int main(void)
+int main()
 {
     const int screenWidth = 1920;
     const int screenHeight = 1080;
@@ -20,11 +21,102 @@ int main(void)
 
     GameScreen currentScreen = MENU;
 
+    int turn = 0;
+    string pos[5];
     int framesCounter = 0;
     bool darkMode = false;
-    bool randomiseCards = false;
+    int randRow = 0, randCol = 0;
+    string playerCards[7], player2Cards[7];
+    bool boolCardsP1[6], boolCardsP2[6];
+    string selectedCard;
+    char key;
+    string cards[6][8]{
+                { "1and", "1and", "1and", "1and", "1and", "1and", "1and", "1and" },
+                { "0and", "0and", "0and", "0and", "0and", "0and", "0and", "0and" },
+                { "1or", "1or", "1or", "1or", "1or", "1or", "1or", "1or" },
+                { "0or", "0or", "0or", "0or", "0or", "0or", "0or", "0or" },
+                { "1xor", "1xor", "1xor", "1xor", "1xor", "1xor", "1xor", "1xor" },
+                { "0xor", "0xor", "0xor", "0xor", "0xor", "0xor", "0xor", "0xor" }
+            };
 
     SetTargetFPS(60);
+
+    int choice[6];
+
+        for (int i = 0; i < 6; i++)
+        {
+            choice[i] = rand() % 2;
+
+            if (choice[i] == 0)
+            {
+                boolCardsP1[i] = 0;
+                boolCardsP2[i] = 1;
+            }
+            else
+            {
+                boolCardsP1[i] = 1;
+                boolCardsP2[i] = 0;
+            }
+        }
+
+
+        for (int i = 0; i < 5; i++)
+        {
+            randRow = rand() % 6;
+            randCol = rand() % 8;
+
+            if (cards[randRow][randCol] != "empty")
+            {
+                playerCards[i] = cards[randRow][randCol];
+                cards[randRow][randCol] = "empty";
+            }
+            else
+            {
+                while (true)
+                {
+                    randRow = rand() % 6;
+                    randCol = rand() % 8;
+
+                    if (cards[randRow][randCol] != "empty")
+                    {
+                        playerCards[i] = cards[randRow][randCol];
+                        cards[randRow][randCol] = "empty";
+                        break;
+                    }
+                }
+            }
+
+        }
+
+
+        for (int i = 0; i < 5; i++)
+        {
+            randRow = rand() % 6;
+            randCol = rand() % 8;
+
+            if (cards[randRow][randCol] != "empty")
+            {
+                player2Cards[i] = cards[randRow][randCol];
+                cards[randRow][randCol] = "empty";
+            }
+
+            else
+            {
+                while (true)
+                {
+                    randRow = rand() % 6;
+                    randCol = rand() % 8;
+
+                    if (cards[randRow][randCol] != "empty")
+                    {
+                        player2Cards[i] = cards[randRow][randCol];
+                        cards[randRow][randCol] = "empty";
+                        break;
+                    }
+                }
+            }
+
+        }
 
     while (!WindowShouldClose())
     {
@@ -123,10 +215,19 @@ int main(void)
             }
             else
             {
-                DrawText("PLAY [P]", 720, 200, 120, DARKGRAY);
-                DrawText("OPTIONS [O]", 600, 400, 120, DARKGRAY);
-                DrawText("RULES [R]", 680, 600, 120, DARKGRAY);
-                DrawText("EXIT [E]", 720, 800, 120, DARKGRAY);
+                DrawRectangle(60, 80, 860, 440, GRAY);
+                DrawRectangle(980, 80, 860, 440, GRAY);
+                DrawRectangle(60, 550, 860, 440, GRAY);
+                DrawRectangle(980, 550, 860, 440, GRAY);
+
+                DrawText("PLAY", 340, 160, 120, RED);
+                DrawText("[P]", 420, 340, 120, RED);
+                DrawText("OPTIONS", 1150, 160, 120, RED);
+                DrawText("[O]", 1350, 340, 120, RED);
+                DrawText("RULES", 290, 620, 120, RED);
+                DrawText("[R]", 420, 800, 120, RED);
+                DrawText("EXIT", 1280, 620, 120, RED);
+                DrawText("[E]", 1350, 800, 120, RED);
             }
         }
         break;
@@ -148,20 +249,62 @@ int main(void)
 
             srand(time(NULL));
 
-            //Initial binaries randomise
-            int choice[6];
-
-            if (!randomiseCards)
+            int x = 525, y = 325, sizeX = 100, sizeY = 140;
+            
+            if (pos[0] == "1and")
             {
-                for (int i = 0; i < 6; i++)
-                {
-                    choice[i] = rand() % 2;
-                }
-
-                randomiseCards = true;
+                Image card = LoadImage("texture/1and.png");
+                ImageResize(&card, sizeX, sizeY);
+                Texture2D img_card = LoadTextureFromImage(card);
+                DrawTexture(img_card, x, y, YELLOW);
+            }
+            if (pos[0] == "0and")
+            {
+                Image card = LoadImage("texture/0and.png");
+                ImageResize(&card, sizeX, sizeY);
+                ImageFlipVertical(&card);
+                Texture2D img_card = LoadTextureFromImage(card);
+                DrawTexture(img_card, x, y, WHITE);
+            }
+            if (pos[0] == "1or")
+            {
+                Image card = LoadImage("texture/1or.png");
+                ImageResize(&card, sizeX, sizeY);
+                ImageFlipVertical(&card);
+                Texture2D img_card = LoadTextureFromImage(card);
+                DrawTexture(img_card, x, y, WHITE);
+            }
+            if (pos[0] == "0or")
+            {
+                Image card = LoadImage("texture/0or.png");
+                ImageResize(&card, sizeX, sizeY);
+                ImageFlipVertical(&card);
+                Texture2D img_card = LoadTextureFromImage(card);
+                DrawTexture(img_card, x, y, WHITE);
+            }
+            if (pos[0] == "1xor")
+            {
+                Image card = LoadImage("texture/1xor.png");
+                ImageResize(&card, sizeX, sizeY);
+                ImageFlipVertical(&card);
+                Texture2D img_card = LoadTextureFromImage(card);
+                DrawTexture(img_card, x, y, WHITE);
+            }
+            if (pos[0] == "0xor")
+            {
+                Image card = LoadImage("texture/0xor.png");
+                ImageResize(&card, sizeX, sizeY);
+                ImageFlipVertical(&card);
+                Texture2D img_card = LoadTextureFromImage(card);
+                DrawTexture(img_card, x, y, WHITE);
             }
 
-            int x = 400, y = 450;
+
+            //Initial binaries randomise
+            
+
+            x = 400;
+            y = 450;
 
             for (int i = 0; i < 6; i++)
             {
@@ -186,39 +329,13 @@ int main(void)
             }
 
             //Deck
-            string cards[6][8]{
-                { "1and", "1and", "1and", "1and", "1and", "1and", "1and", "1and" },
-                { "0and", "0and", "0and", "0and", "0and", "0and", "0and", "0and" },
-                { "1or", "1or", "1or", "1or", "1or", "1or", "1or", "1or" },
-                { "0or", "0or", "0or", "0or", "0or", "0or", "0or", "0or" },
-                { "1xor", "1xor", "1xor", "1xor", "1xor", "1xor", "1xor", "1xor" },
-                { "0xor", "0xor", "0xor", "0xor", "0xor", "0xor", "0xor", "0xor" }
-            };
+            
 
             //First - 5 random cards (choose 1 to put or discard); next time - pull 1 (-||-)
 
             //First 5 random cards
-            int randRow = 0, randCol = 0;
-            string playerCards[7];
 
-            randomiseCards = false;
-
-            if (!randomiseCards)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    randRow = rand() % 6;
-                    randCol = rand() % 8;
-
-                    if (cards[randRow][randCol] != "empty")
-                    {
-                        playerCards[i] = cards[randRow][randCol];
-                        cards[randRow][randCol] = "empty";
-                    }
-                }
-
-                randomiseCards = true;
-            }
+            
             
             if (darkMode)
             {
@@ -298,28 +415,12 @@ int main(void)
             x = 15;
             y = 240;
 
-            randomiseCards = false;
 
-            if (!randomiseCards)
-            {
-                for (int i = 0; i < 5; i++)
-                {
-                    randRow = rand() % 6;
-                    randCol = rand() % 8;
-
-                    if (cards[randRow][randCol] != "empty")
-                    {
-                        playerCards[i] = cards[randRow][randCol];
-                        cards[randRow][randCol] = "empty";
-                    }
-                }
-
-                randomiseCards = true;
-            }
+            
 
             for (int i = 0; i < 5; i++)
             {
-                if (playerCards[i] == "1and")
+                if (player2Cards[i] == "1and")
                 {
                     Image card = LoadImage("texture/1and.png");
                     ImageResize(&card, 60, 100);
@@ -327,7 +428,7 @@ int main(void)
                     Texture2D img_card = LoadTextureFromImage(card);
                     DrawTexture(img_card, x, y, WHITE);
                 }
-                if (playerCards[i] == "0and")
+                if (player2Cards[i] == "0and")
                 {
                     Image card = LoadImage("texture/0and.png");
                     ImageResize(&card, 60, 100);
@@ -335,7 +436,7 @@ int main(void)
                     Texture2D img_card = LoadTextureFromImage(card);
                     DrawTexture(img_card, x, y, WHITE);
                 }
-                if (playerCards[i] == "1or")
+                if (player2Cards[i] == "1or")
                 {
                     Image card = LoadImage("texture/1or.png");
                     ImageResize(&card, 60, 100);
@@ -343,7 +444,7 @@ int main(void)
                     Texture2D img_card = LoadTextureFromImage(card);
                     DrawTexture(img_card, x, y, WHITE);
                 }
-                if (playerCards[i] == "0or")
+                if (player2Cards[i] == "0or")
                 {
                     Image card = LoadImage("texture/0or.png");
                     ImageResize(&card, 60, 100);
@@ -351,7 +452,7 @@ int main(void)
                     Texture2D img_card = LoadTextureFromImage(card);
                     DrawTexture(img_card, x, y, WHITE);
                 }
-                if (playerCards[i] == "1xor")
+                if (player2Cards[i] == "1xor")
                 {
                     Image card = LoadImage("texture/1xor.png");
                     ImageResize(&card, 60, 100);
@@ -359,7 +460,7 @@ int main(void)
                     Texture2D img_card = LoadTextureFromImage(card);
                     DrawTexture(img_card, x, y, WHITE);
                 }
-                if (playerCards[i] == "0xor")
+                if (player2Cards[i] == "0xor")
                 {
                     Image card = LoadImage("texture/0xor.png");
                     ImageResize(&card, 60, 100);
@@ -370,6 +471,14 @@ int main(void)
 
                 x += 75;
             }
+
+
+
+            if (IsKeyPressed(KEY_A))
+            {
+                pos[0] = playerCards[0];
+            }
+
         }
         break;
 
@@ -390,14 +499,14 @@ int main(void)
                 DrawRectangle(1160, 450, 100, 100, BLUE);
                 DrawRectangle(1600, 450, 100, 100, BLUE);
 
-                DrawText("60", 260, 570, 70, BLUE);
-                DrawText("[6]", 260, 650, 70, GOLD);
-                DrawText("120", 700, 570, 70, BLUE);
-                DrawText("[12]", 700, 650, 70, GOLD);
-                DrawText("180", 1160, 570, 70, BLUE);
-                DrawText("[18]", 1160, 650, 70, GOLD);
-                DrawText("240", 1590, 570, 70, BLUE);
-                DrawText("[24]", 1590, 650, 70, GOLD);
+                DrawText("60", 265, 570, 60, BLUE);
+                DrawText("[6]", 265, 650, 60, GOLD);
+                DrawText("120", 708, 570, 60, BLUE);
+                DrawText("[12]", 708, 650, 60, GOLD);
+                DrawText("180", 1168, 570, 60, BLUE);
+                DrawText("[18]", 1168, 650, 60, GOLD);
+                DrawText("240", 1600, 570, 60, BLUE);
+                DrawText("[24]", 1600, 650, 60, GOLD);
 
                 DrawText("Dark Mode [D]", 120, 850, 70, GREEN);
                 DrawRectangle(700, 830, 100, 100, LIGHTGRAY);
@@ -415,14 +524,14 @@ int main(void)
                 DrawRectangle(1160, 450, 100, 100, BLUE);
                 DrawRectangle(1600, 450, 100, 100, BLUE);
 
-                DrawText("60", 260, 570, 70, BLUE);
-                DrawText("[6]", 260, 650, 70, GOLD);
-                DrawText("120", 700, 570, 70, BLUE);
-                DrawText("[12]", 700, 650, 70, GOLD);
-                DrawText("180", 1160, 570, 70, BLUE);
-                DrawText("[18]", 1160, 650, 70, GOLD);
-                DrawText("240", 1590, 570, 70, BLUE);
-                DrawText("[24]", 1590, 650, 70, GOLD);
+                DrawText("60", 265, 570, 60, BLUE);
+                DrawText("[6]", 265, 650, 60, GOLD);
+                DrawText("120", 708, 570, 60, BLUE);
+                DrawText("[12]", 708, 650, 60, GOLD);
+                DrawText("180", 1168, 570, 60, BLUE);
+                DrawText("[18]", 1168, 650, 60, GOLD);
+                DrawText("240", 1600, 570, 60, BLUE);
+                DrawText("[24]", 1600, 650, 60, GOLD);
 
                 DrawText("Dark Mode [D]", 120, 850, 70, GREEN);
                 DrawRectangle(700, 830, 100, 100, LIGHTGRAY);
