@@ -1,23 +1,43 @@
-<h1>DockCoders</h1>
+<p  align="center">
+<img height="300" width="" alt="Logo"/>
+</p>
 
-<h2>DockCoders</h2>
-<p>We are a team of students who created a Booleo-based game. We work productively on the given task and we are ready for many more.</p>
+<h1 align="center"> DockCoders </h1>
 
-<h2>Team</h2>
-<p><a href = "https://github.com/iatsrangalov20">Ivan Tsrangalov</a> - Scrum Trainer</p>
-<p><a href = "https://github.com/aibaev20">Alexander Baev</a> - Backend Developer</p>
-<p><a href = "https://github.com/ikgeorgiev20">Ivan Georgiev</a> - QA Engineer</p>
-<p><a href = "https://github.com/mvivanov20">Mariyan Vasilev</a> - Backend Developer</p>
+<hr>
 
-<h2>👉Installation</h2>
+## Table of contents
 
-<p>Open your CMD and paste this code:</p>
-<ol>
-  <li>cd \</li>
-  <li>git clone https://github.com/iatsrangalov20/DockCoders</li>
-  <li>Open your C: and look for </li>
-</ol>
+- [✍ Description](#description)
 
-<h2>📝Documentation</h2>
-<p>Documentation -> <a href = "">Click here</a></p>
-<p>Presentation -> <a href = "">Click here</a></p>
+- [🏁 Getting started](#gettingStarted)
+
+- [✨Built using](#builtbyusing)
+
+- [🙆Authors](#authors)
+
+- [📘Presentation and Documentations](#documentations)
+
+## Description <a name="description"></a>
+
+## Getting started <a name="gettingStarted">
+  
+
+
+Here is all the information for everithing used to create this project. 
+  
+- [💻Visual Studio code](https://code.visualstudio.com/download) - Application   
+  
+- [💎Word](https://tinyurl.com/mt43tywd) - word processing software used to create the documentation 
+  
+- [📙PowePoint](https://www.microsoft.com/bg-bg/microsoft-365/powerpoint) - presentation program used to create the presentation 
+  
+## Authors <a name = "authors"></a>
+  All the people who did take part in this project
+
+- [👦Ivan Tsrangalov](https://github.com/IATsrangalov20) - Scrum trainer  
+- [👦Ivan Georgiev](https://github.com/IKGeorgiev20) - QA engineer
+- [👦Alexandar Baev](https://github.com/AIBaev20) - Backend developer   
+- [👦Mariyan Ivanov](https://github.com/MVIvanov20) - Backend developer
+
+## Presentation and documentation <a name = "documentations"></a>
