@@ -199,6 +199,10 @@ int main()
             {
                 darkMode = true; // dark mode 
             }
+            if (IsKeyPressed(KEY_L))
+            {
+                darkMode = false;
+            }
         }
         break;
 
@@ -239,19 +243,19 @@ int main()
             {
                 ClearBackground(BLACK);
 
-                DrawRectangle(60, 80, 860, 440, LIGHTGRAY);
-                DrawRectangle(980, 80, 860, 440, LIGHTGRAY);
-                DrawRectangle(60, 550, 860, 440, LIGHTGRAY);
-                DrawRectangle(980, 550, 860, 440, LIGHTGRAY);
+                DrawRectangle(60, 80, 860, 440, DARKGRAY);
+                DrawRectangle(980, 80, 860, 440, DARKGRAY);
+                DrawRectangle(60, 550, 860, 440, DARKGRAY);
+                DrawRectangle(980, 550, 860, 440, DARKGRAY);
 
-                DrawText("PLAY", 340, 160, 120, MAROON);
-                DrawText("[P]", 420, 340, 120, MAROON);
-                DrawText("OPTIONS", 1150, 160, 120, MAROON);
-                DrawText("[O]", 1350, 340, 120, MAROON);
-                DrawText("RULES", 290, 620, 120, MAROON);
-                DrawText("[R]", 420, 800, 120, MAROON);
-                DrawText("EXIT", 1280, 620, 120, MAROON);
-                DrawText("[E]", 1350, 800, 120, MAROON);
+                DrawText("PLAY", 340, 160, 120, WHITE);
+                DrawText("[P]", 420, 340, 120, WHITE);
+                DrawText("OPTIONS", 1150, 160, 120, WHITE);
+                DrawText("[O]", 1350, 340, 120, WHITE);
+                DrawText("RULES", 290, 620, 120, WHITE);
+                DrawText("[R]", 420, 800, 120, WHITE);
+                DrawText("EXIT", 1280, 620, 120, WHITE);
+                DrawText("[E]", 1350, 800, 120, WHITE);
             }
             else
             {
@@ -531,9 +535,9 @@ int main()
 
                 DrawFPS(30, 60);
 
-                DrawText("OPTIONS", 720, 120, 110, DARKBLUE);
+                DrawText("OPTIONS", 720, 120, 110, PURPLE);
 
-                DrawText("Choose FPS", 120, 300, 70, BROWN);
+                DrawText("Choose FPS", 120, 300, 70, WHITE);
 
                 DrawRectangle(250, 450, 100, 100, SKYBLUE);
                 DrawRectangle(700, 450, 100, 100, SKYBLUE);
@@ -541,16 +545,33 @@ int main()
                 DrawRectangle(1600, 450, 100, 100, SKYBLUE);
 
                 DrawText("60", 265, 570, 60, BLUE);
-                DrawText("[6]", 265, 650, 60, DARKGREEN);
+                DrawText("[6]", 265, 650, 60, GREEN);
                 DrawText("120", 708, 570, 60, BLUE);
-                DrawText("[12]", 708, 650, 60, DARKGREEN);
+                DrawText("[12]", 708, 650, 60, GREEN);
                 DrawText("180", 1168, 570, 60, BLUE);
-                DrawText("[18]", 1168, 650, 60, DARKGREEN);
+                DrawText("[18]", 1168, 650, 60, GREEN);
                 DrawText("240", 1600, 570, 60, BLUE);
-                DrawText("[24]", 1600, 650, 60, DARKGREEN);
+                DrawText("[24]", 1600, 650, 60, GREEN);
 
-                DrawText("Dark Mode [D]", 120, 850, 70, BROWN);
-                DrawRectangle(700, 830, 100, 100, BLUE);
+                DrawText("Light Mode [L]", 120, 850, 70, WHITE);
+                DrawRectangle(700, 830, 100, 100, WHITE);
+
+                if (GetFPS() > 58 && GetFPS() < 62)
+                {
+                    DrawRectangle(250, 450, 100, 100, GREEN);
+                }
+                if (GetFPS() > 120 && GetFPS() < 130)
+                {
+                    DrawRectangle(700, 450, 100, 100, GREEN);
+                }
+                if (GetFPS() > 150 && GetFPS() < 210)
+                {
+                    DrawRectangle(1160, 450, 100, 100, GREEN);
+                }
+                if (GetFPS() > 220 && GetFPS() < 290)
+                {
+                    DrawRectangle(1600, 450, 100, 100, GREEN);
+                }
             }
             else
             {
@@ -558,7 +579,7 @@ int main()
 
                 DrawText("OPTIONS", 720, 120, 110, DARKBLUE);
 
-                DrawText("Choose FPS", 120, 300, 70, DARKBROWN);
+                DrawText("Choose FPS", 120, 300, 70, BLACK);
 
                 DrawRectangle(250, 450, 100, 100, SKYBLUE);
                 DrawRectangle(700, 450, 100, 100, SKYBLUE);
@@ -574,25 +595,25 @@ int main()
                 DrawText("240", 1600, 570, 60, DARKBLUE);
                 DrawText("[24]", 1600, 650, 60, DARKGREEN);
 
-                DrawText("Dark Mode [D]", 120, 850, 70, DARKBROWN);
-                DrawRectangle(700, 830, 100, 100, BLUE);
-            }
+                DrawText("Dark Mode [D]", 120, 850, 70, BLACK);
+                DrawRectangle(700, 830, 100, 100, BLACK);
 
-            if (GetFPS() > 58 && GetFPS() < 62)
-            {
-                DrawRectangle(250, 450, 100, 100, DARKGREEN);
-            }
-            if (GetFPS() > 120 && GetFPS() < 130)
-            {
-                DrawRectangle(700, 450, 100, 100, DARKGREEN);
-            }
-            if (GetFPS() > 160 && GetFPS() < 185)
-            {
-                DrawRectangle(1160, 450, 100, 100, DARKGREEN);
-            }
-            if (GetFPS() > 240 && GetFPS() < 290)
-            {
-                DrawRectangle(1600, 450, 100, 100, DARKGREEN);
+                if (GetFPS() > 58 && GetFPS() < 62)
+                {
+                    DrawRectangle(250, 450, 100, 100, DARKGREEN);
+                }
+                if (GetFPS() > 120 && GetFPS() < 130)
+                {
+                    DrawRectangle(700, 450, 100, 100, DARKGREEN);
+                }
+                if (GetFPS() > 150 && GetFPS() < 210)
+                {
+                    DrawRectangle(1160, 450, 100, 100, DARKGREEN);
+                }
+                if (GetFPS() > 220 && GetFPS() < 290)
+                {
+                    DrawRectangle(1600, 450, 100, 100, DARKGREEN);
+                }
             }
 
         }
@@ -603,10 +624,70 @@ int main()
             if (darkMode)
             {
                 ClearBackground(BLACK);
+
+                DrawText("RULES", 840, 60, 90, PURPLE);
+
+                DrawRectangle(50, 150, 610, 850, DARKGRAY);
+
+                DrawText("Introduction", 60, 170, 26, GREEN);
+                DrawText("Karten", 60, 580, 26, GREEN);
+
+                DrawText("bOOleo is a card game which combines strategy card", 55, 210, 22, WHITE);
+                DrawText("play with the concepts of Boolean logic. Players must", 55, 240, 22, WHITE);
+                DrawText("race to resolve an initial binary number to a single", 55, 270, 22, WHITE);
+                DrawText("specific bit by creating a logic pyramid; this is acc-", 55, 300, 22, WHITE);
+                DrawText("omplished through the use of logical gates. A logical", 55, 330, 22, WHITE);
+                DrawText("gate is a device which performs a Boolean operation", 55, 360, 22, WHITE);
+                DrawText("on one or more inputs and returning the answer.", 55, 390, 22, WHITE);
+                DrawText("Inputs and outputs are represented by bits; either", 55, 420, 22, WHITE);
+                DrawText("a one or a zero. In bOOleO three of the operations", 55, 450, 22, WHITE);
+                DrawText("are represented by gates: AND, OR and XOR. The", 55, 480, 22, WHITE);
+                DrawText("NOT operator is represented as a special card which", 55, 510, 22, WHITE);
+                DrawText("can negate one of the bits in the initial binary number", 55, 540, 22, WHITE);
+                DrawText("A standart bOOleO deck contains a total of 64 cards.", 55, 620, 22, WHITE);
+                DrawText("2 - Truth Table Cards", 55, 650, 22, WHITE);
+                DrawText("6 - Initial Binaries", 55, 680, 22, WHITE);
+                DrawText("8 - Not Cards", 55, 710, 22, WHITE);
+                DrawText("48 - Logical Gate Cards", 55, 740, 22, WHITE);
+                DrawText("Truth Table cards demonstrate the outputs of each", 55, 770, 22, WHITE);
+                DrawText("of the different gates given all possible input", 55, 800, 22, WHITE);
+                DrawText("combinations. For each type of gate, the four", 55, 830, 22, WHITE);
+                DrawText("possible input combinations are listed, along with", 55, 860, 22, WHITE);
+                DrawText("the corresponding output.", 55, 890, 22, WHITE);
             }
 
-            DrawRectangle(100, 100, 800, 800, BLUE);
-            DrawText("Here you will see the rules in the future", 400, 400, 80, GRAY);
+            else
+            {
+                DrawText("RULES", 840, 60, 90, DARKBLUE);
+
+                DrawRectangle(50, 150, 610, 850, LIGHTGRAY);
+
+                DrawText("Introduction", 60, 170, 26, RED);
+                DrawText("Karten", 60, 580, 26, RED);
+
+                DrawText("bOOleo is a card game which combines strategy card", 55, 210, 22, MAROON);
+                DrawText("play with the concepts of Boolean logic. Players must", 55, 240, 22, MAROON);
+                DrawText("race to resolve an initial binary number to a single", 55, 270, 22, MAROON);
+                DrawText("specific bit by creating a logic pyramid; this is acc-", 55, 300, 22, MAROON);
+                DrawText("omplished through the use of logical gates. A logical", 55, 330, 22, MAROON);
+                DrawText("gate is a device which performs a Boolean operation", 55, 360, 22, MAROON);
+                DrawText("on one or more inputs and returning the answer.", 55, 390, 22, MAROON);
+                DrawText("Inputs and outputs are represented by bits; either", 55, 420, 22, MAROON);
+                DrawText("a one or a zero. In bOOleO three of the operations", 55, 450, 22, MAROON);
+                DrawText("are represented by gates: AND, OR and XOR. The", 55, 480, 22, MAROON);
+                DrawText("NOT operator is represented as a special card which", 55, 510, 22, MAROON);
+                DrawText("can negate one of the bits in the initial binary number", 55, 540, 22, MAROON);
+                DrawText("A standart bOOleO deck contains a total of 64 cards.", 55, 620, 22, MAROON);
+                DrawText("2 - Truth Table Cards", 55, 650, 22, MAROON);
+                DrawText("6 - Initial Binaries", 55, 680, 22, MAROON);
+                DrawText("8 - Not Cards", 55, 710, 22, MAROON);
+                DrawText("48 - Logical Gate Cards", 55, 740, 22, MAROON);
+                DrawText("Truth Table cards demonstrate the outputs of each", 55, 770, 22, MAROON);
+                DrawText("of the different gates given all possible input", 55, 800, 22, MAROON);
+                DrawText("combinations. For each type of gate, the four", 55, 830, 22, MAROON);
+                DrawText("possible input combinations are listed, along with", 55, 860, 22, MAROON);
+                DrawText("the corresponding output.", 55, 890, 22, MAROON);
+            }
 
         }
         break;
@@ -618,11 +699,13 @@ int main()
             if (darkMode)
             {
                 ClearBackground(BLACK);
-                DrawText("Exit after 2 seconds", 500, 500, 90, WHITE);
+                DrawText("The application will automatically", 320, 450, 80, WHITE);
+                DrawText("close after 2 seconds", 540, 550, 80, WHITE);
             }
             else
             {
-                DrawText("Exit after 2 seconds", 500, 500, 90, DARKBLUE);
+                DrawText("The application will automatically", 320, 450, 80, DARKBLUE);
+                DrawText("close after 2 seconds", 540, 550, 80, DARKBLUE);
             }
 
             // exit 

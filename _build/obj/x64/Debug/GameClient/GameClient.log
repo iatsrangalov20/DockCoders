@@ -1,3 +1,3 @@
 ﻿  main.cpp
-C:\Users\My PC\Desktop\Alexander\DockCoders\GameClient\main.cpp(271,23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-  GameClient.vcxproj -> C:\Users\My PC\Desktop\Alexander\DockCoders\_bin\Debug\GameClient.exe
+C:\Users\My PC\Desktop\Alexander\Проекти\DockCoders\GameClient\main.cpp(295,23): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  GameClient.vcxproj -> C:\Users\My PC\Desktop\Alexander\Проекти\DockCoders\_bin\Debug\GameClient.exe
