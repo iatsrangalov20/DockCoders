@@ -13,12 +13,18 @@ typedef enum GameScreen {
 
 int main()
 {
+    // window measurements
+
     const int screenWidth = 1920;
     const int screenHeight = 1080;
+
+    // create window
 
     InitWindow(screenWidth, screenHeight, "Game");
 
     GameScreen currentScreen = MENU;
+
+    // Important variables
 
     string pos[5];
     int framesCounter = 0;
@@ -27,7 +33,10 @@ int main()
     string player1Cards[7], player2Cards[7];
     bool initialCardsValueP1[6], initialCardsValueP2[6];
     bool cardsValue;
-    string cardsName[6][8] {
+
+    // Card deck
+
+    string cardsName[6][8]{
         { "1and", "1and", "1and", "1and", "1and", "1and", "1and", "1and" },
         { "0and", "0and", "0and", "0and", "0and", "0and", "0and", "0and" },
         { "1or", "1or", "1or", "1or", "1or", "1or", "1or", "1or" },
@@ -39,6 +48,8 @@ int main()
     SetTargetFPS(60);
 
     int choice[6];
+
+    // randomise initial binaries
 
     for (int i = 0; i < 6; i++)
     {
@@ -55,6 +66,8 @@ int main()
             initialCardsValueP2[i] = 0;
         }
     }
+
+    // randomise first player's cards
 
     for (int i = 0; i < 5; i++)
     {
@@ -84,6 +97,7 @@ int main()
 
     }
 
+    // Randomise second player's cards
 
     for (int i = 0; i < 5; i++)
     {
@@ -122,6 +136,8 @@ int main()
     {
         cardsValue = 0;
     }
+
+    // Switch screens 
 
     while (!WindowShouldClose())
     {
@@ -181,7 +197,7 @@ int main()
             }
             if (IsKeyPressed(KEY_D))
             {
-                darkMode = true;
+                darkMode = true; // dark mode 
             }
         }
         break;
@@ -211,6 +227,9 @@ int main()
         BeginDrawing();
 
         ClearBackground(RAYWHITE);
+
+
+        // check which screen is the user on
 
         switch (currentScreen)
         {
@@ -267,11 +286,12 @@ int main()
             ImageResize(&deck, 200, 270);
             Texture2D deck_tex = LoadTextureFromImage(deck);
             DrawTexture(deck_tex, 1650, 100, WHITE);
+            
 
-            srand(time(NULL));
+            srand(time(NULL)); // every time get different random number 
 
             int x = 525, y = 325, sizeX = 100, sizeY = 140;
-            
+
             if (pos[0] == "1and")
             {
                 Image card = LoadImage("texture/1and.png");
@@ -322,13 +342,15 @@ int main()
 
 
             //Initial binaries randomise
-            
+
 
             x = 400;
             y = 450;
 
             for (int i = 0; i < 6; i++)
             {
+                // visualise initial binaries 
+
                 switch (choice[i])
                 {
                 case 0:
@@ -348,7 +370,7 @@ int main()
 
                 x += 200;
             }
-            
+
             if (darkMode)
             {
                 DrawText("Player 1's deck", 15, 50, 20, WHITE);
@@ -363,6 +385,8 @@ int main()
 
             for (int i = 0; i < 5; i++)
             {
+                // visualise player one's deck
+
                 if (player1Cards[i] == "1and")
                 {
                     Image card = LoadImage("texture/1and.png");
@@ -428,17 +452,20 @@ int main()
             y = 240;
 
 
-            
+
 
             for (int i = 0; i < 5; i++)
             {
+
+                // visulise playe two's deck
+
                 if (player2Cards[i] == "1and")
                 {
-                    Image card = LoadImage("texture/1and.png");
-                    ImageResize(&card, 60, 100);
-                    ImageFlipVertical(&card);
-                    Texture2D img_card = LoadTextureFromImage(card);
-                    DrawTexture(img_card, x, y, WHITE);
+                    Image card = LoadImage("texture/1and.png"); // load image in memory
+                    ImageResize(&card, 60, 100); // resize image 
+                    ImageFlipVertical(&card); // flip image 
+                    Texture2D img_card = LoadTextureFromImage(card); // create texture for image 
+                    DrawTexture(img_card, x, y, WHITE); // visualise texture
                 }
                 if (player2Cards[i] == "0and")
                 {
@@ -484,7 +511,7 @@ int main()
                 x += 75;
             }
 
-            
+            // plays first card
 
             if (IsKeyPressed(KEY_A))
             {
@@ -496,6 +523,8 @@ int main()
 
         case OPTIONS:
         {
+            // options design dark mode 
+
             if (darkMode == true)
             {
                 ClearBackground(BLACK);
@@ -584,6 +613,8 @@ int main()
 
         case EXIT:
         {
+            // dark mode 
+
             if (darkMode)
             {
                 ClearBackground(BLACK);
@@ -593,7 +624,9 @@ int main()
             {
                 DrawText("Exit after 2 seconds", 500, 500, 90, DARKBLUE);
             }
-            
+
+            // exit 
+
 
             framesCounter++;
 
